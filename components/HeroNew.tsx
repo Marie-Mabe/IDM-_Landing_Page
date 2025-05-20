@@ -4,7 +4,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
-const MyGlobe = dynamic(() => import('./MyGlobe'), { ssr: false });
+
+// ✅ Charger dynamiquement sans SSR
+const AnimatedMapPin = dynamic(() =>
+  import('./AnimatedMapPin').then(mod => ({ default: mod.AnimatedMapPin })),
+  { ssr: false }
+);
 
 export default function HeroNew() {
   return (
@@ -13,7 +18,7 @@ export default function HeroNew() {
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-50 via-white to-indigo-100" />
 
       {/* Globe visible à partir de md */}
-      <div className="absolute inset-0 z-10 hidden md:flex items-center justify-center pr-10 lg:pr-24 pointer-events-auto">
+      <div className="absolute inset-0 z-10 hidden md:flex items-end justify-end pr-5 lg:pr-24 mt-80 pointer-events-auto">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -22,7 +27,7 @@ export default function HeroNew() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <MyGlobe />
+          <AnimatedMapPin />
         </motion.div>
       </div>
 
@@ -34,10 +39,10 @@ export default function HeroNew() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 text-center sm:text-left">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 text-center sm:text-left">
               IDM+ <br className="hidden sm:block" /> Votre Plateforme <br className="hidden sm:block" /> d'Identification de Ménages
             </h1>
-            <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-700 text-center sm:text-left">
+            <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-700 text-center sm:text-left">
               Une solution moderne et innovante pour la gestion et l'identification <br /> des ménages avec précision et efficacité.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
