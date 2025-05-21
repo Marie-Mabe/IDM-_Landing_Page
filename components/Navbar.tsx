@@ -27,7 +27,7 @@ const Navbar = () => {
               Services
             </Link>
             <Link href="/about" className="text-gray-600 hover:text-gray-900 px-2 sm:px-3 py-2 rounded-md text-sm font-medium">
-              À propos
+              À propos de
             </Link>
             <Link href="/contact" className="text-gray-600 hover:text-gray-900 px-2 sm:px-3 py-2 rounded-md text-sm font-medium">
               Contact
