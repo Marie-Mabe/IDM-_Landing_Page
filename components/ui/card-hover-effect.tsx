@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
-
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 export const HoverEffect = ({
@@ -15,7 +14,7 @@ export const HoverEffect = ({
   }[];
   className?: string;
 }) => {
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
@@ -27,37 +26,33 @@ export const HoverEffect = ({
       {items.map((item, idx) => (
         <a
           href={item?.link}
-          key={item?.link}
-          className="relative group  block p-4 h-80 w-80"
+          key={item?.link || idx}
+          className="relative group block w-full max-w-sm mx-auto"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-                className="absolute inset-0 h-80 w-80 bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Card>
-            <div className="flex flex-col items-center text-center p-6">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-1">
-                {item.icon}
+          <div className="relative h-80 w-full">
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.span
+                  className="absolute -inset-2 rounded-3xl bg-neutral-200 dark:bg-slate-800/[0.8] z-0 shadow-xl"
+                  layoutId="hoverBackground"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.2 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.1 } }}
+                />
+              )}
+            </AnimatePresence>
+            <Card className="absolute inset-0 z-10">
+              <div className="flex flex-col items-center text-center p-6">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-1">
+                  {item.icon}
+                </div>
+                <CardTitle>{item.title}</CardTitle>
+                <CardDescription>{item.description}</CardDescription>
               </div>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </a>
       ))}
     </div>
@@ -74,7 +69,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-80 w-80 overflow-hidden bg-gray-50 border border-gray-200 dark:border-white/[0.2] group-hover:border-blue-500 relative z-20",
+        "rounded-2xl h-full w-full overflow-hidden bg-white border border-gray-200 dark:border-white/[0.2] group-hover:border-blue-500 relative",
         className
       )}
     >
@@ -84,6 +79,7 @@ export const Card = ({
     </div>
   );
 };
+
 export const CardTitle = ({
   className,
   children,
@@ -97,6 +93,7 @@ export const CardTitle = ({
     </h4>
   );
 };
+
 export const CardDescription = ({
   className,
   children,

@@ -33,7 +33,7 @@ export default function ObjectivesSection() {
           whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
         >
           <div className="w-full px-4 sm:px-6 lg:px-8">
-            <div className=" sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
+            <div className="sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
               <HoverEffect items={projects} />
             </div>
           </div>
